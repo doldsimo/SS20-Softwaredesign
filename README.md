@@ -1,2 +1,1 @@
-# SS20-Softwaredesign
----------------------
+# Softwaredesign
