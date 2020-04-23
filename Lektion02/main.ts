@@ -1,4 +1,4 @@
-var massage = "Hallo Welt!";
+var message = "Hallo Welt!";
 
-alert(massage)
-console.log(massage);
+alert(message)
+console.log(message);

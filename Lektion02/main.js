@@ -1,5 +1,5 @@
 "use strict";
-var massage = "Hallo Welt!";
-alert(massage);
-console.log(massage);
+var message = "Hallo Welt!";
+alert(message);
+console.log(message);
 //# sourceMappingURL=main.js.map
