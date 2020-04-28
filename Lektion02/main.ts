@@ -1,4 +1,2 @@
-var message = "Hallo Welt!";
-
-alert(message)
+let message: string = "Hallo Welt!";
 console.log(message);
