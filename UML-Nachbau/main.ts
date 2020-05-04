@@ -15,19 +15,15 @@ namespace main {
     }
     //Fuege Array hinzu
     letterArray.push(wordsArray);
-    console.log(letterArray);
 
     console.log(reverseWords(letterArray));
     console.log(reserveLetters(letterArray));
     console.log(reverseWordsAndLeters(letterArray));
-    //swapElementsOfArray(letterArray[0]);
 
     //3. Beides vertauschen
     function reverseWordsAndLeters(allArray: string[][]): string {
         let newArray: string[] = [];
-        console.log(allArray);
         allArray.reverse();
-        console.log();
         for (let i: number = 1; i < allArray.length; i++) {
             newArray.push((allArray[i]).join(""));
         }
