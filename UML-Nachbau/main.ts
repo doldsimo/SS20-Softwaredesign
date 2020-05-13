@@ -1,5 +1,4 @@
-// Namespace mit PascalCase
-namespace main {
+namespace Main {
     //Eingabe des Strings
     let sentence: string = prompt("Geben Sie einen Satz ein", "Die Maus frisst Käse");
 
@@ -22,33 +21,32 @@ namespace main {
     console.log(reverseWordsAndLeters(letterArray));
 
     //3. Beides vertauschen
-    // underscore beim Parameter
-    function reverseWordsAndLeters(allArray: string[][]): string {
+    function reverseWordsAndLeters(_allArray: string[][]): string {
         let newArray: string[] = [];
-        allArray.reverse();
-        for (let i: number = 1; i < allArray.length; i++) {
-            newArray.push((allArray[i]).join(""));
+        _allArray.reverse();
+        for (let i: number = 1; i < _allArray.length; i++) {
+            newArray.push((_allArray[i]).join(""));
         }
         return newArray.join(" ");
     }
 
     //2. Vertauschen der Buchstaben innerhalb eines Wortes
-    function reserveLetters(allArray: string[][]): string {
+    function reserveLetters(_allArray: string[][]): string {
         let newArray: string[] = [];
-        for (let i: number = 0; i < allArray.length - 1; i++) {
-            newArray.push(swapElementsOfArray(allArray[i]).join(""));
+        for (let i: number = 0; i < _allArray.length - 1; i++) {
+            newArray.push(swapElementsOfArray(_allArray[i]).join(""));
         }
         return newArray.join(" ");
     }
 
     //1. Vertauschen des Satzes 
-    function reverseWords(allArray: string[][]): string {
-        return swapElementsOfArray(allArray[allArray.length - 1]).join(" ");
+    function reverseWords(_allArray: string[][]): string {
+        return swapElementsOfArray(_allArray[_allArray.length - 1]).join(" ");
     }
 
     //Umdrehen eines Arrays
-    function swapElementsOfArray(array: string[]): string[] {
-        return array.reverse();
+    function swapElementsOfArray(_array: string[]): string[] {
+        return _array.reverse();
     }
 }
 
