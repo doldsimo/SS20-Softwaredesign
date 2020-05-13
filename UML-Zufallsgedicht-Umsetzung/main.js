@@ -1,6 +1,6 @@
 "use strict";
-var main;
-(function (main) {
+var Main;
+(function (Main) {
     let subjects = ["Harry", "Hermine", "Ron", "Hagrid", "Snape", "Dumbledore"];
     let verbs = ["braut", "liebt", "studiert", "hasst", "zaubert", "zerstört"];
     let objects = ["Zaubertränke", "den Grimm", "Lupin", "Hogwards", "die Karte des Rumtreibers", "Dementoren"];
@@ -8,9 +8,8 @@ var main;
     for (let k = 0; k < kMax; k++) {
         console.log(getVers(subjects, verbs, objects));
     }
-    function getVers(subjects, verbs, objects) {
-        debugger;
-        let vers = stringSelector(randomInteger(0, subjects.length), subjects) + " " + stringSelector(randomInteger(0, verbs.length), verbs) + " " + stringSelector(randomInteger(0, objects.length), objects);
+    function getVers(_subjects, _verbs, _objects) {
+        let vers = stringSelector(randomInteger(0, _subjects.length), _subjects) + " " + stringSelector(randomInteger(0, _verbs.length), _verbs) + " " + stringSelector(randomInteger(0, _objects.length), _objects);
         return vers;
     }
     function randomInteger(max, min) {
@@ -22,5 +21,5 @@ var main;
         arr.splice(int, 1);
         return word;
     }
-})(main || (main = {}));
+})(Main || (Main = {}));
 //# sourceMappingURL=main.js.map
