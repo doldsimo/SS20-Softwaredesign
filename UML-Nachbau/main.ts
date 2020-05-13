@@ -1,3 +1,4 @@
+// Namespace mit PascalCase
 namespace main {
     //Eingabe des Strings
     let sentence: string = prompt("Geben Sie einen Satz ein", "Die Maus frisst Käse");
@@ -21,6 +22,7 @@ namespace main {
     console.log(reverseWordsAndLeters(letterArray));
 
     //3. Beides vertauschen
+    // underscore beim Parameter
     function reverseWordsAndLeters(allArray: string[][]): string {
         let newArray: string[] = [];
         allArray.reverse();
