@@ -1,17 +1,56 @@
 "use strict";
 var EQ;
 (function (EQ) {
-    // Adding default Questions
-    let allQuestions = [
-        new EQ.SingleChoiceQuestion("Wie viele Bundesländer hat Deutschland?", ["12", "14", "16", "18"], 3),
-        new EQ.MultipleChoiceQuestion("Was zählt alles unter Kfz?", ["Motorrad", "Auto", "Lokomotive", "Roller"], [1, 2, 4]),
-        new EQ.YesNoQuestion("Ist der Mensch ein Säugetier?", true),
-        new EQ.EstimateQuestion("Wie viele Menschen Leben auf der Erde? (Januar 2020)", 7754847000, 1000000000),
-        new EQ.TextQuestion("Wie heißt die aktuelle Bundeskanzlerin? (Nur Nachname)", "Merkel"),
-    ];
     let userPoints = 0;
-    console.log(allQuestions);
-    askUsersChoice();
+    let allQuestions = [
+    // new SingleChoiceQuestion("Wie viele Bundesländer hat Deutschland?", ["12", "14", "16", "18"], 3), // nicht der Index, als korrekte Antwort angeben
+    // new MultipleChoiceQuestion("Was zählt alles unter Kfz?", ["Motorrad", "Auto", "Lokomotive", "Roller"], [1, 2, 4]), // nicht der Index als korrekte Antwort angeben
+    // new YesNoQuestion("Ist der Mensch ein Säugetier?", true),
+    // new EstimateQuestion("Wie viele Menschen Leben auf der Erde? (Januar 2020)", 7754847000, 1000000000),
+    // new TextQuestion("Wie heißt die aktuelle Bundeskanzlerin? (Nur Nachname)", "Merkel"),
+    ];
+    load("allQuestions.json").then();
+    async function load(_filename) {
+        let response = await fetch(_filename);
+        let json = await response.json();
+        addQuestionsFromJSONToQuiz(json);
+        console.log(allQuestions);
+        askUsersChoice();
+    }
+    function addQuestionsFromJSONToQuiz(_json) {
+        for (let i = 0; i < _json.length; i++) {
+            switch (_json[i].type) {
+                case "SingleChoiceQuestion": {
+                    let singleChoiceQuestion = new EQ.SingleChoiceQuestion(_json[i].question, _json[i].answers, _json[i].correctAnswer);
+                    allQuestions.push(singleChoiceQuestion);
+                    break;
+                }
+                case "MultipleChoiceQuestion": {
+                    let multipleChoiceQuestion = new EQ.MultipleChoiceQuestion(_json[i].question, _json[i].answers, _json[i].correctAnswers);
+                    allQuestions.push(multipleChoiceQuestion);
+                    break;
+                }
+                case "YesNoQuestion": {
+                    let yesNoQuestion = new EQ.YesNoQuestion(_json[i].question, _json[i].answers);
+                    allQuestions.push(yesNoQuestion);
+                    break;
+                }
+                case "EstimateQuestion": {
+                    let estimateQuestion = new EQ.EstimateQuestion(_json[i].question, _json[i].answer, _json[i].tolerance);
+                    allQuestions.push(estimateQuestion);
+                    break;
+                }
+                case "TextQuestion": {
+                    let textQuestion = new EQ.TextQuestion(_json[i].question, _json[i].answer);
+                    allQuestions.push(textQuestion);
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        }
+    }
     function addSingleChoiceQuestion() {
         let question = prompt("[Single Choice Question]\nWie soll die Frage lauten?", "Gebe hier deine Frage ein");
         let allAnswers = [];

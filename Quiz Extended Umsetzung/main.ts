@@ -1,19 +1,62 @@
 namespace EQ {
-    // Adding default Questions
-    let allQuestions: Question[] = [
-        new SingleChoiceQuestion("Wie viele Bundesländer hat Deutschland?", ["12", "14", "16", "18"], 3), // nicht der Index, als korrekte Antwort angeben
-        new MultipleChoiceQuestion("Was zählt alles unter Kfz?", ["Motorrad", "Auto", "Lokomotive", "Roller"], [1,2,4]), // nicht der Index als korrekte Antwort angeben
-        new YesNoQuestion("Ist der Mensch ein Säugetier?", true),
-        new EstimateQuestion("Wie viele Menschen Leben auf der Erde? (Januar 2020)", 7754847000, 1000000000),
-        new TextQuestion("Wie heißt die aktuelle Bundeskanzlerin? (Nur Nachname)", "Merkel"),
-    ]
     let userPoints: number = 0;
+    let allQuestions: Question[] = [
+        // new SingleChoiceQuestion("Wie viele Bundesländer hat Deutschland?", ["12", "14", "16", "18"], 3), // nicht der Index, als korrekte Antwort angeben
+        // new MultipleChoiceQuestion("Was zählt alles unter Kfz?", ["Motorrad", "Auto", "Lokomotive", "Roller"], [1, 2, 4]), // nicht der Index als korrekte Antwort angeben
+        // new YesNoQuestion("Ist der Mensch ein Säugetier?", true),
+        // new EstimateQuestion("Wie viele Menschen Leben auf der Erde? (Januar 2020)", 7754847000, 1000000000),
+        // new TextQuestion("Wie heißt die aktuelle Bundeskanzlerin? (Nur Nachname)", "Merkel"),
+    ]
 
-    console.log(allQuestions);
-
-    askUsersChoice();
+    load("allQuestions.json").then();
 
 
+    async function load(_filename: string): Promise<void> {
+        let response: Response = await fetch(_filename);
+        let json: any = await response.json();
+        addQuestionsFromJSONToQuiz(json);
+        console.log(allQuestions);
+        askUsersChoice();
+    }
+    
+    function addQuestionsFromJSONToQuiz(_json: any): void {
+        
+        for (let i: number = 0; i < _json.length; i++) {
+            switch (_json[i].type) {
+                case "SingleChoiceQuestion": {
+                    let singleChoiceQuestion = new SingleChoiceQuestion(_json[i].question, _json[i].answers, _json[i].correctAnswer);
+                    allQuestions.push(singleChoiceQuestion);
+                    break;
+                }
+                case "MultipleChoiceQuestion": {
+                    let multipleChoiceQuestion = new MultipleChoiceQuestion(_json[i].question, _json[i].answers, _json[i].correctAnswers);
+                    allQuestions.push(multipleChoiceQuestion);
+                    break;
+                }
+                case "YesNoQuestion": {
+                    let yesNoQuestion = new YesNoQuestion(_json[i].question, _json[i].answers);
+                    allQuestions.push(yesNoQuestion);
+                    break;
+                }
+                case "EstimateQuestion": {
+                    let estimateQuestion = new EstimateQuestion(_json[i].question,_json[i].answer, _json[i].tolerance);
+                    allQuestions.push(estimateQuestion);                    
+                    break;
+                }
+                case "TextQuestion": {
+                    let textQuestion = new TextQuestion(_json[i].question, _json[i].answer);
+                    allQuestions.push(textQuestion);
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+
+        }
+
+
+    }
 
     function addSingleChoiceQuestion(): void {
         let question: string = prompt("[Single Choice Question]\nWie soll die Frage lauten?", "Gebe hier deine Frage ein");
@@ -147,7 +190,7 @@ namespace EQ {
         }
     }
 
-    function showUserPoints(): void{
+    function showUserPoints(): void {
         alert("Dein aktueller Punktestand ist: " + userPoints);
         askUsersChoice();
     }
@@ -160,38 +203,38 @@ namespace EQ {
         switch (yourQuestion.constructor.name) {
             case "SingleChoiceQuestion": {
                 let yourSingleChoiceQuestion: SingleChoiceQuestion = yourQuestion;
-                if(yourSingleChoiceQuestion.showQuestionAnswers())
+                if (yourSingleChoiceQuestion.showQuestionAnswers())
                     userPoints++;
                 showUserPoints();
                 break;
             }
             case "MultipleChoiceQuestion": {
                 let yourMultipleChoiceQuestion: MultipleChoiceQuestion = yourQuestion;
-                if(yourMultipleChoiceQuestion.showQuestionAnswers())
+                if (yourMultipleChoiceQuestion.showQuestionAnswers())
                     userPoints++;
-                showUserPoints(); 
+                showUserPoints();
                 break;
             }
             case "YesNoQuestion": {
                 let yourYesNoQuestion: YesNoQuestion = yourQuestion;
-                if(yourYesNoQuestion.showQuestionAnswers())
+                if (yourYesNoQuestion.showQuestionAnswers())
                     userPoints++;
-                showUserPoints(); 
+                showUserPoints();
                 break;
             }
             case "EstimateQuestion": {
                 // debugger;
                 let yourEstimateQuestion: EstimateQuestion = yourQuestion;
-                if(yourEstimateQuestion.showQuestionAnswers())
+                if (yourEstimateQuestion.showQuestionAnswers())
                     userPoints++;
-                showUserPoints(); 
+                showUserPoints();
                 break;
             }
             case "TextQuestion": {
                 let yourTextQuestion: TextQuestion = yourQuestion;
-                if(yourTextQuestion.showQuestionAnswers())
+                if (yourTextQuestion.showQuestionAnswers())
                     userPoints++
-                showUserPoints(); 
+                showUserPoints();
                 break;
             }
             default: {

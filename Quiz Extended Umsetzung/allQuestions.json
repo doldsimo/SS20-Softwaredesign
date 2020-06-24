@@ -1,0 +1,31 @@
+[
+    {
+        "type": "SingleChoiceQuestion",
+        "question": "Wie viele Bundesländer hat Deutschland?",
+        "answers": ["12", "14", "16", "18"],
+        "correctAnswer": 3
+    },
+    {   
+        "type": "MultipleChoiceQuestion",
+        "question": "Was zählt alles unter Kfz?",
+        "answers": ["Motorrad", "Auto", "Lokomotive", "Roller"],
+        "correctAnswers": [1,2,4]
+    },
+    {
+        "type": "YesNoQuestion",
+        "question": "Ist der Mensch ein Säugetier?",
+        "answers": true
+    },
+    {
+        "type": "EstimateQuestion",
+        "question": "Wie viele Menschen Leben auf der Erde? (Januar 2020)",
+        "answer": 7754847000,
+        "tolerance": 10000000
+    },
+    {
+        "type": "TextQuestion",
+        "question": "Wie heißt die aktuelle Bundeskanzlerin? (Nur Nachname))",
+        "answer": "Merkel"
+    }
+
+]
